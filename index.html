@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lknm studio — Product Catalog</title>
+  <meta name="description" content="lknm studio catalog featuring live wedding drawing, specific drawings, flower bouquet, to-go flower handle, and love capsule." />
+  <style>
+    :root{
+      --sage:#9dbd9f;
+      --sage-dark:#6e8a72;
+      --sage-soft:#eff6ef;
+      --cream:#fbf8f4;
+      --text:#2f322d;
+      --muted:#6a7067;
+      --line:#e5ebe4;
+      --card:#ffffff;
+      --shadow:0 14px 34px rgba(31,40,31,.08);
+      --radius:24px;
+      --max:1180px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg,#f7fbf7 0%, var(--cream) 18%, var(--cream) 100%);
+      line-height:1.55;
+    }
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    .container{width:min(calc(100% - 32px), var(--max));margin:0 auto}
+    header{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter: blur(12px);
+      background:rgba(251,248,244,.86);
+      border-bottom:1px solid rgba(229,235,228,.9);
+    }
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.01em}
+    .brand img{width:44px;height:44px;object-fit:contain;border-radius:50%}
+    nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .chip{
+      padding:10px 14px;border:1px solid var(--line);border-radius:999px;
+      background:rgba(255,255,255,.85);font-size:14px;color:var(--text);transition:.2s ease
+    }
+    .chip:hover{background:var(--sage);color:#fff;border-color:var(--sage)}
+    .hero{padding:36px 0 28px}
+    .hero-wrap{display:grid;grid-template-columns:1.08fr .92fr;gap:24px;align-items:stretch}
+    .hero-copy,.hero-photo,.notice,.card,.pricing, .cta {
+      background:var(--card);border:1px solid var(--line);border-radius:32px;box-shadow:var(--shadow)
+    }
+    .hero-copy{padding:34px}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      background:var(--sage-soft);color:var(--sage-dark);padding:8px 12px;border-radius:999px;
+      font-size:13px;font-weight:700;margin-bottom:16px
+    }
+    h1{margin:0;font-size:clamp(38px,7vw,72px);line-height:.95;letter-spacing:-.04em}
+    .accent{color:var(--sage-dark)}
+    .lead{font-size:17px;color:var(--muted);max-width:56ch;margin:16px 0 0}
+    .hero-stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+    .stat{padding:14px 16px;background:#fafcf9;border:1px solid var(--line);border-radius:18px;min-width:130px}
+    .stat strong{display:block;font-size:24px;line-height:1.1}
+    .stat span{font-size:13px;color:var(--muted)}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:13px 18px;border-radius:999px;font-weight:700;border:1px solid transparent;transition:.2s ease
+    }
+    .btn-primary{background:var(--sage-dark);color:#fff}
+    .btn-primary:hover{transform:translateY(-1px);opacity:.95}
+    .btn-secondary{background:#fff;border-color:var(--line);color:var(--text)}
+    .btn-secondary:hover{background:var(--sage-soft)}
+    .hero-photo{overflow:hidden;position:relative;min-height:420px}
+    .hero-photo img{width:100%;height:100%;object-fit:cover}
+    .hero-badge{
+      position:absolute;left:18px;bottom:18px;right:18px;
+      background:rgba(255,255,255,.88);backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,.6);padding:16px 18px;border-radius:20px
+    }
+    .hero-badge strong{display:block;margin-bottom:4px}
+    .notice{margin-top:18px;padding:16px 18px;font-size:14px;color:var(--muted)}
+    main section{padding:26px 0}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:18px}
+    .section-head h2{margin:0;font-size:32px;letter-spacing:-.03em}
+    .section-head p{margin:8px 0 0;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    .card{overflow:hidden}
+    .media{aspect-ratio:4/3;background:#f5f7f4}
+    .media img{width:100%;height:100%;object-fit:cover}
+    .body{padding:20px}
+    .tag{
+      display:inline-flex;padding:7px 10px;border-radius:999px;
+      background:var(--sage-soft);color:var(--sage-dark);font-size:12px;font-weight:700;margin-bottom:12px
+    }
+    h3{margin:0 0 8px;font-size:22px;letter-spacing:-.02em}
+    .desc{margin:0;color:var(--muted)}
+    .meta{
+      display:flex;justify-content:space-between;gap:12px;align-items:end;
+      margin-top:16px;padding-top:16px;border-top:1px solid var(--line)
+    }
+    .price{font-size:24px;font-weight:800;line-height:1}
+    .note{font-size:13px;color:var(--muted);text-align:right}
+    .pricing{padding:18px;margin-top:18px}
+    .pricing h4{margin:0 0 12px;font-size:18px}
+    .price-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+    .mini-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .price-card{
+      border:1px solid var(--line);border-radius:20px;padding:16px;background:#fcfdfb
+    }
+    .price-card.recommend{border-color:var(--sage);background:var(--sage-soft)}
+    .price-card .label{font-size:12px;font-weight:700;color:var(--sage-dark);text-transform:uppercase;letter-spacing:.06em}
+    .price-card strong{display:block;font-size:28px;line-height:1.05;margin:8px 0 10px}
+    .price-card ul{margin:0;padding-left:18px;color:var(--muted);font-size:14px}
+    .price-card li+li{margin-top:4px}
+    .table-like{display:grid;gap:10px}
+    .row{
+      display:grid;grid-template-columns:1.4fr .9fr .8fr;
+      gap:10px;padding:13px 14px;border:1px solid var(--line);border-radius:16px;background:#fcfdfb;align-items:center
+    }
+    .row strong{font-size:15px}
+    .row .sub{font-size:13px;color:var(--muted)}
+    .row .amt{text-align:right;font-weight:800}
+    .cta{
+      padding:22px;display:flex;justify-content:space-between;align-items:center;gap:18px;margin-top:18px
+    }
+    .cta h3{margin:0 0 6px}
+    footer{padding:36px 0 52px;color:var(--muted);font-size:14px}
+    @media (max-width: 980px){
+      .hero-wrap,.grid,.grid-3,.price-grid,.mini-grid{grid-template-columns:1fr}
+      .cta,.topbar{flex-direction:column;align-items:flex-start}
+      nav{justify-content:flex-start}
+      .row{grid-template-columns:1fr}
+      .row .amt{text-align:left}
+      .meta{flex-direction:column;align-items:flex-start}
+      .note{text-align:left}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container topbar">
+      <a class="brand" href="#top">
+        <img src="assets/logo.png" alt="lknm studio logo" />
+        <span>lknm studio</span>
+      </a>
+      <nav>
+        <a class="chip" href="#products">Products</a>
+        <a class="chip" href="#live">Live Drawing</a>
+        <a class="chip" href="#specific">Specific Drawing</a>
+        <a class="chip" href="#flowers">Flower Gifts</a>
+        <a class="chip" href="#capsule">Love Capsule</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-wrap">
+        <div class="hero-copy">
+          <div class="eyebrow">Handmade art • Floral gift • Wedding keepsake</div>
+          <h1>Soft, sweet, and <span class="accent">memorable</span> pieces for special moments.</h1>
+          <p class="lead">A curated catalog by lknm studio featuring live wedding drawing, custom illustrations, flower bouquet gifts, to-go flower handles, and love capsule keepsakes.</p>
+
+          <div class="hero-stats">
+            <div class="stat"><strong>5</strong><span>Main product lines</span></div>
+            <div class="stat"><strong>From 150 THB</strong><span>Mini custom pieces</span></div>
+            <div class="stat"><strong>Event-ready</strong><span>Designed for gifting & weddings</span></div>
+          </div>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://www.instagram.com/lknm.studio/" target="_blank" rel="noopener noreferrer">Book via Instagram</a>
+            <a class="btn btn-secondary" href="#products">View packages</a>
+          </div>
+        </div>
+
+        <div class="hero-photo">
+          <img src="assets/hero-booth.jpg" alt="lknm studio flower booth display" />
+          <div class="hero-badge">
+            <strong>lknm studio catalog</strong>
+            Floral gifts and illustration keepsakes designed to make moments feel personal.
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="notice">Prices below are based on the March 2026 pricing model. Travel fee and shipping are charged separately where applicable.</div>
+      </div>
+    </section>
+
+    <section id="products">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Featured products</h2>
+            <p>Choose the format that fits your occasion best.</p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <div class="media"><img src="assets/live-drawing-color.png" alt="Live Drawing Wedding" /></div>
+            <div class="body">
+              <span class="tag">Wedding service</span>
+              <h3>Live Drawing Wedding</h3>
+              <p class="desc">On-site portrait sketching for guests during weddings and events. A warm, memorable keepsake created live at the venue.</p>
+              <div class="meta"><div class="price">9,000–25,000 THB</div><div class="note">3 hrs minimum</div></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="media"><img src="assets/specific-watercolor.png" alt="Mini Specific Drawing Watercolor" /></div>
+            <div class="body">
+              <span class="tag">Custom illustration</span>
+              <h3>Specific Drawing</h3>
+              <p class="desc">Personalized portrait illustration based on your photo reference. Suitable for gifts, couples, family portraits, and special occasions.</p>
+              <div class="meta"><div class="price">From 150 THB</div><div class="note">Watercolor / digital</div></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="media"><img src="assets/flower-bouquet.png" alt="Flower Bouquet" /></div>
+            <div class="body">
+              <span class="tag">Floral gift</span>
+              <h3>Flower Bouquet</h3>
+              <p class="desc">Thoughtful bouquets with a soft, handmade touch. Great for gifting, celebrations, thank-you moments, and mini brand activations.</p>
+              <div class="meta"><div class="price">950 THB</div><div class="note">Fresh flower bouquet</div></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="media"><img src="assets/to-go-flower.png" alt="To-go Flower Handle" /></div>
+            <div class="body">
+              <span class="tag">Portable floral gift</span>
+              <h3>To-Go Flower Handle</h3>
+              <p class="desc">A playful flower format that feels light, modern, and gift-ready. Ideal for events, pop-ups, and message-based gifting.</p>
+              <div class="meta"><div class="price">From 189 THB</div><div class="note">Or booth package 15,000 THB</div></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="media"><img src="assets/love-capsule.png" alt="Love Capsule Machine" /></div>
+            <div class="body">
+              <span class="tag">Interactive keepsake</span>
+              <h3>Love Capsule Machine</h3>
+              <p class="desc">An interactive capsule display that turns guest participation into a beautiful collectible memory for weddings and installations.</p>
+              <div class="meta"><div class="price">6,900–19,900 THB</div><div class="note">100 / 180 / 300 balls</div></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="media"><img src="assets/to-go-flower-booth.png" alt="To-Go Flower booth at event" /></div>
+            <div class="body">
+              <span class="tag">Event setup</span>
+              <h3>Booth Display</h3>
+              <p class="desc">A charming booth setup for exhibitions, brand activations, pop-ups, or gifting corners inside events.</p>
+              <div class="meta"><div class="price">15,000 THB</div><div class="note">8 hrs or 50 pcs package</div></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="cta">
+          <div>
+            <h3>Interested in booking or custom sizing?</h3>
+            <p>Message lknm studio on Instagram for availability, event details, and custom orders.</p>
+          </div>
+          <a class="btn btn-primary" href="https://www.instagram.com/lknm.studio/" target="_blank" rel="noopener noreferrer">Open Instagram</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="live">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Live Drawing Wedding</h2>
+            <p>Two drawing styles with four package levels. Minimum booking is 3 hours.</p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="media"><img src="assets/live-drawing-color.png" alt="Live Drawing Wedding watercolor style" /></div>
+            <div class="body">
+              <span class="tag">Color sketch</span>
+              <h3>Watercolor style</h3>
+              <p class="desc">Soft watercolor portraits with a charming handmade look, drawn live for guests at your wedding or event.</p>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="media"><img src="assets/live-drawing-line.png" alt="Live Drawing Wedding line style" /></div>
+            <div class="body">
+              <span class="tag">Line sketch</span>
+              <h3>Minimal line style</h3>
+              <p class="desc">Clean and elegant live line drawings for guests who love a light, timeless keepsake aesthetic.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="pricing">
+          <h4>Package pricing</h4>
+          <div class="price-grid">
+            <div class="price-card">
+              <div class="label">Package A</div>
+              <strong>9,000 THB</strong>
+              <ul>
+                <li>3 hrs minimum</li>
+                <li>50 line drawings</li>
+                <li>20 color drawings</li>
+              </ul>
+            </div>
+            <div class="price-card recommend">
+              <div class="label">Recommended</div>
+              <strong>10,000 THB</strong>
+              <ul>
+                <li>3 hrs minimum</li>
+                <li>90 line drawings</li>
+                <li>30 color drawings</li>
+              </ul>
+            </div>
+            <div class="price-card">
+              <div class="label">Package C</div>
+              <strong>20,000 THB</strong>
+              <ul>
+                <li>3 hrs minimum</li>
+                <li>120 line drawings</li>
+                <li>50 color drawings</li>
+              </ul>
+            </div>
+            <div class="price-card">
+              <div class="label">Package D</div>
+              <strong>25,000 THB</strong>
+              <ul>
+                <li>3 hrs minimum</li>
+                <li>150 line drawings</li>
+                <li>100 color drawings</li>
+              </ul>
+            </div>
+          </div>
+          <div class="notice" style="margin-top:14px">
+            Extra time on event day: 3,000 THB per 30 minutes. Shipping for guests who missed collection can be arranged separately.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="specific">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Specific Drawing</h2>
+            <p>Custom portraits in watercolor and digital formats.</p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="media"><img src="assets/specific-watercolor.png" alt="Mini Specific Drawing watercolor" /></div>
+            <div class="body">
+              <span class="tag">Watercolor</span>
+              <h3>Mini Specific Drawing</h3>
+              <p class="desc">Small watercolor portrait pieces with an intimate, handmade feel. Great for gifts and personal keepsakes.</p>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="media"><img src="assets/specific-digital-frame.png" alt="Specific Drawings digital art with frame" /></div>
+            <div class="body">
+              <span class="tag">Digital art</span>
+              <h3>Digital Art with Frame</h3>
+              <p class="desc">Refined digital illustration suitable for framed gifting, anniversaries, weddings, or premium custom orders.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="pricing">
+          <h4>Watercolor sizes</h4>
+          <div class="table-like">
+            <div class="row"><div><strong>Mini size 4×6 cm</strong><div class="sub">Add-on item</div></div><div class="sub">No frame discount: none</div><div class="amt">150 THB</div></div>
+            <div class="row"><div><strong>A6</strong><div class="sub">Add-on note in pricing file: +100 THB / piece</div></div><div class="sub">No frame discount: 50 THB</div><div class="amt">400 THB</div></div>
+            <div class="row"><div><strong>A5</strong><div class="sub">Classic display size</div></div><div class="sub">No frame discount: 50 THB</div><div class="amt">500 THB</div></div>
+            <div class="row"><div><strong>A4</strong><div class="sub">Larger presentation size</div></div><div class="sub">No frame discount: 90 THB</div><div class="amt">800 THB</div></div>
+          </div>
+        </div>
+
+        <div class="pricing">
+          <h4>Digital art with frame</h4>
+          <div class="table-like">
+            <div class="row"><div><strong>60×80 cm / 24×32 in</strong><div class="sub">Large statement piece</div></div><div class="sub">No frame discount: 600 THB</div><div class="amt">3,000 THB</div></div>
+            <div class="row"><div><strong>42×60 cm / 16.8×24 in</strong><div class="sub">Framed digital art</div></div><div class="sub">See IG for custom sizing</div><div class="amt">2,000 THB</div></div>
+            <div class="row"><div><strong>35×45 cm / 14×18 in</strong><div class="sub">Mid-size framed piece</div></div><div class="sub">No frame discount: 250 THB</div><div class="amt">1,500 THB</div></div>
+            <div class="row"><div><strong>25×30 cm / 10×12 in</strong><div class="sub">Compact frame size</div></div><div class="sub">No frame discount: 90 THB</div><div class="amt">1,000 THB</div></div>
+          </div>
+          <div class="notice" style="margin-top:14px">Shipping is charged separately based on weight, destination, and urgency.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="flowers">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Flower gifts</h2>
+            <p>From bouquets to portable flower handles and event booths.</p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="media"><img src="assets/flower-bouquet.png" alt="Flower Bouquet selection" /></div>
+            <div class="body">
+              <span class="tag">Bouquet</span>
+              <h3>Flower Bouquet</h3>
+              <p class="desc">Colorful and expressive bouquet options curated for gifting moments and visual displays.</p>
+              <div class="meta"><div class="price">950 THB</div><div class="note">Per bouquet</div></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="media"><img src="assets/to-go-flower.png" alt="To-Go Flower Handle close-up" /></div>
+            <div class="body">
+              <span class="tag">To-go format</span>
+              <h3>To-Go Flower Handle</h3>
+              <p class="desc">Carryable flower pieces with ribbon and tag details that feel modern, sweet, and easy to gift.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="pricing">
+          <h4>To-Go Flower Handle pricing</h4>
+          <div class="mini-grid">
+            <div class="price-card">
+              <div class="label">Booth package</div>
+              <strong>15,000 THB</strong>
+              <ul>
+                <li>8 hours booth rental</li>
+                <li>Best for events and activations</li>
+              </ul>
+            </div>
+            <div class="price-card">
+              <div class="label">Booth package</div>
+              <strong>15,000 THB</strong>
+              <ul>
+                <li>50-piece booth package</li>
+                <li>Suitable for giveaways</li>
+              </ul>
+            </div>
+            <div class="price-card">
+              <div class="label">Per piece</div>
+              <strong>239 THB</strong>
+              <ul>
+                <li>Includes image option</li>
+                <li>Add-on note: 50 THB / piece</li>
+              </ul>
+            </div>
+            <div class="price-card">
+              <div class="label">Per piece</div>
+              <strong>189 THB</strong>
+              <ul>
+                <li>No image option</li>
+                <li>Minimal gifting format</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="capsule">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Love Capsule</h2>
+            <p>An interactive installation for meaningful notes and memories.</p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="media"><img src="assets/love-capsule.png" alt="Love Capsule Machine display" /></div>
+            <div class="body">
+              <span class="tag">Interactive keepsake</span>
+              <h3>Love Capsule Machine</h3>
+              <p class="desc">A visually memorable centerpiece where guests can pick or leave sweet messages, creating a heartfelt shared memory.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="pricing">
+          <h4>Package pricing</h4>
+          <div class="price-grid" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+            <div class="price-card">
+              <div class="label">Package S</div>
+              <strong>6,900 THB</strong>
+              <ul>
+                <li>100 balls</li>
+                <li>Minimal decoration</li>
+                <li>Message card included</li>
+              </ul>
+            </div>
+            <div class="price-card recommend">
+              <div class="label">Package M</div>
+              <strong>12,900 THB</strong>
+              <ul>
+                <li>180 balls</li>
+                <li>Message + mission + lucky ball</li>
+                <li>Custom sign for the couple</li>
+              </ul>
+            </div>
+            <div class="price-card">
+              <div class="label">Package L</div>
+              <strong>19,900 THB</strong>
+              <ul>
+                <li>300 balls</li>
+                <li>Flower decoration</li>
+                <li>On-site setup by team</li>
+              </ul>
+            </div>
+          </div>
+          <div class="notice" style="margin-top:14px">Each guest can pick 1 ball as both a souvenir and an interactive experience.</div>
+        </div>
+
+        <div class="cta">
+          <div>
+            <h3>Ready to check availability?</h3>
+            <p>DM lknm studio on Instagram with your event date, location, and product you're interested in.</p>
+          </div>
+          <a class="btn btn-primary" href="https://www.instagram.com/lknm.studio/" target="_blank" rel="noopener noreferrer">Message on Instagram</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© lknm studio — Product catalog website • Instagram: @lknm.studio</div>
+  </footer>
+</body>
+</html>
